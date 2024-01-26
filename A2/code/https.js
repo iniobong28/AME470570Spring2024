@@ -1,4 +1,4 @@
-var homeDir = require('path').join(require('os').homedir());
+/* var homeDir = require('path').join(require('os').homedir());
 require('greenlock-express').create({
   version: 'draft-11'
 , server: 'https://acme-v02.api.letsencrypt.org/directory'
@@ -11,3 +11,4 @@ require('greenlock-express').create({
 , app: require('./server.js')
 //, communityMember: true
 }).listen(8080, 8443);
+*/

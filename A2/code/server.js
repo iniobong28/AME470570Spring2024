@@ -1,6 +1,6 @@
 //from bootstrap
 
-/*var express = require("express");
+var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
@@ -18,8 +18,9 @@ app.use(express.static(__dirname + '/public'));
 app.use(errorHandler());
 
 console.log("Simple static server listening at http://" + hostname + ":" + port);
-app.listen(port);*/
+app.listen(port);
 
+/*
 //from class repository for Assignment 2
 var express = require("express");
 var app = express();
@@ -43,3 +44,4 @@ console.log("Simple static server listening at http://" + hostname + ":" + port)
 
 if (require.main === module) { app.listen(port); }
 else{ module.exports = app; }
+*/

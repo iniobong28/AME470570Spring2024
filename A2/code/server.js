@@ -44,3 +44,5 @@ console.log("Simple static server listening at http://" + hostname + ":" + port)
 
 if (require.main === module) { app.listen(port); }
 else{ module.exports = app; }
+
+//these last two lines allow you to run HTTP (on your local machine) and HTTPS (on an internet server)

@@ -42,15 +42,14 @@
                 $('#feedDetails').html(markup);
             }
 
-            var addNewFeed(){
-                var url = prompt("enter rss food");
+            var addNewFeed = function(){
+                var url = prompt("enter rss feed");
                 if (url){
                     console.log(url);
                     $.ajax({
-                    url: './getFeed?url=' + window.location.hash.replace('#', ''),
-                    type: 'GET',
-                    success: function(data) {
-                        
+                        url: './addFeed?url=' + url,
+                        type: 'GET',
+                        success: function(data) {   
                     },
                     error: function(error) {
                         console.log(error);

@@ -41,6 +41,24 @@
                 "<a target='_blank' href='" + item.url +"'>" + item.url + "</a>";
                 $('#feedDetails').html(markup);
             }
+
+            var addNewFeed(){
+                var url = prompt("enter rss food");
+                if (url){
+                    console.log(url);
+                    $.ajax({
+                    url: './getFeed?url=' + window.location.hash.replace('#', ''),
+                    type: 'GET',
+                    success: function(data) {
+                        
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+                }
+                
+            }
         </script>
     </head>
     <body onload="main()">

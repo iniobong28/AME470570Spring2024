@@ -11,16 +11,18 @@
                     url: './getFeed?url=' + window.location.hash.replace('#', ''),
                     type: 'GET',
                     success: function(data) {
-                        console.log(data);
-                        allFeeds = data;
+                        console.log(data); //log data to console
+                        allFeeds = data; //store in globalvariable
                         var markup = '';
-                        allItems = allFeeds.feed.results;
+                        allItems = allFeeds.feed.results; //store items from feeds
                         for (var i = 0; i < allItems.length; i++) {
-                            markup += '<button onclick="showDetails(' + i + ')">' + 
+                            markup += '<button onclick="showDetails(' + i + ')">' + //calls function called showDetails
                               "<div class='thumb' style='background-image: url(" + allItems[i].artworkUrl100 + ")'></div>" +
                               "<h1>"  + allItems[i].name +  "</h1>" +
                               "<h2>"  + allItems[i].artistName +  "</h2>" +
-                            '</button>';
+                            '</button>'; 
+                            //display all the information in the items
+                            //this script creates html buttons with headers
                         }
                         $('#feedList').html(markup);
                     },
@@ -28,6 +30,16 @@
                         console.log(error);
                     }
                 });
+            }
+
+            var showDetails = function(index){
+                var item = allItems[index];
+                var markup = "<h1>" + item.name + "</h1>" +
+                "<h2>" + item.artistName + "</h2"+
+                "<img src = '" + item.artworkUrl100 + "'/>"+
+                "<p>" + item.releaseDate + "</p>"+
+                "<a target='_blank' href='" + item.url +"'>" + item.url + "</a>";
+                $('#feedDetails').html(markup);
             }
         </script>
     </head>
@@ -51,6 +63,8 @@
             float: right;
             height: 100vh;
             background-color: beige;
+            text-align: center;
+            font-size: 200%;
         }
         #feedList button {
             width: 100%;

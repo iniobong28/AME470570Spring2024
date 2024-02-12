@@ -15,7 +15,7 @@ app.get("/getFeed", function (req, res) {
     });
 });
 
-app.get("/getFeed", function (req, res) {
+app.get("/addNewFeed", function (req, res) {
     var url = req.query.url;
     console.log(url);
     res.send("1");

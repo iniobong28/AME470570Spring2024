@@ -44,6 +44,10 @@
         </script>
     </head>
     <body onload="main()">
+        <div> id="mainMenu
+            <button onclick="addNewFeed()"></button>
+            <div> id="allFeeds"</div>
+        </div>
         <div id="feedList"> </div>
         <div id="feedDetails"> </div>
         
@@ -52,6 +56,12 @@
         body {
             margin: 0;
             padding: 0;
+        }
+        #mainMenu {
+            width: 300px;
+            float: left;
+            height: 100vh;
+            background-color: rgb(10, 175, 13);
         }
         #feedList {
             width: 300px;

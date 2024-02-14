@@ -10,7 +10,8 @@ var client = require('node-rest-client').Client;
 var restClient = new client();
 
 var dbserverip = process.argv.slice(2)[0]
-console.log(ip);
+console.log(dbserverip);
+
 var db = MS.db("mongodb://" + dbserverip + ":27017/rssApp" , {native_parser: true});
 
 app.get("/getFeed", function (req, res) {
@@ -23,16 +24,14 @@ app.get("/getFeed", function (req, res) {
 app.get("/addFeed", function (req, res) {
     var url = req.query.url;
     console.log(url);
-    //creating a JSON object
     var obj = {
         url: url,
-        name: "untitled",
+        name: "Untitled",
         time: new Date().getTime()
     };
 
-    db.collection('feeds').insert(obj, function(err, result){
+    db.collection('feeds').insert(obj, function (err, result) {
         res.end(result);
-        //close the request by sending what the result was
     });
 
 });

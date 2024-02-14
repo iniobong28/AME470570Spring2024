@@ -7,6 +7,12 @@ var hostname = process.env.HOSTNAME || 'localhost';
 var port = 8080;
 var client = require('node-rest-client').Client;
 var restClient = new client();
+var MS = require("mongoskin");
+
+
+var dbserverip = process.argv.slice(2)[0];
+console.log(ip);
+var db = MS.db("mongo://" + ip + ":27017/rssApp", {native_parser: true});
 
 app.get("/getFeed", function (req, res) {
     var url = req.query.url;

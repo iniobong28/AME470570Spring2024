@@ -23,7 +23,18 @@ app.get("/getFeed", function (req, res) {
 app.get("/addFeed", function (req, res) {
     var url = req.query.url;
     console.log(url);
-    res.send("1");
+    //creating a JSON object
+    var obj = {
+        url: url,
+        name: "untitled",
+        time: new Date().getTime()
+    };
+
+    db.collection('feeds').insert(obj, function(err, result){
+        res.end(result);
+        //close the request by sending what the result was
+    });
+
 });
 
 app.use(methodOverride());

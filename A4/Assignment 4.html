@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            h1 {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            h2 {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            h3 {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            ol {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            .image{
+                display: block
+                
+            }
+            #main {
+                margin-left:2%;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div id="main">
+        <h1>
+            AME 470 Assignment 4
+        </h1>
+        <h2>
+            Iniobong Obong
+        </h2>
+
+        <div id="section1">
+        <h3>
+            How to Install Node.JS
+        </h3>
+        <ol>
+            <li>Before we install Node.JS, we need to get our server up and running. Go the the AWS canvas page, 
+                scroll down to Sandbox and click “start lab.” Wait for the circle next to the AWS link to turn green, then click on it.
+            </li>
+            <li>
+                In AWS, find the application called “EC2” and open it. Create a new instance with the following parameters:
+                <ol type="a">
+                    <li>
+                        Choose Ubuntu Operating system. We will we using the version that is 1 step before the most current version 
+                        they have on there which is Ubuntu Server 20.04 LTS
+                        <img class="image" src="choose ubuntu.png" width="600">
+                    </li>
+                    <li> In the Keypair dropdown options, select “Proceed without Keypair”.</li>
+                    <li>Check “Allow HTTP traffic” and “Allow HTTPS traffic.”</li>
+                    <li>Under the configure storage section, change “8 GiB” to “28 GiB” 
+                        <img class="image" src="configure storage.png" width="600">
+                    </li>
+                    <li>Launch the instance.</li>
+                </ol>
+            </li>
+            <li>
+                Wait for the instance state to to change from “pending” to “running,” then click on it and click 
+                “connect” to connect to the instance. This should open the console for our new instance of the virtual machine
+            </li>
+            <li>Now we're ready to install node.JS! All you have to do is paste the following into the command line then hit Enter:
+                curl -s https://gist.githubusercontent.com/tejaswigowda/f289e9bff13d152876e8d4b3281142f8/raw/df37df2e16a3166e686357a045751a7c18bbeebe/installNodeMongoUbuntu16.04.sh  | bash
+            </li>
+            <li>If you're planning on using HTTPS, paste the following into the command line as well:
+                npm install greenlock-express@2
+            </li>
+            <li>And that's it! We're ready to load our files into the virtual machine. If you have a github repo, you can type "git clone [paste your url here] and 
+                it will clone the repository to the AWS machine.
+            </li>
+        </ol>
+        </div>
+
+        <div id="section2">
+        <h3>
+            How to Intsall and run the MongoDB Server
+        </h3>
+        <p>You're going to want to use Mongo Compass, so make sure you have that installed onto your laptop.</p>
+        <ol>
+            <li>Once your server is up and running, type "sudo service mongod status" into the command line to check the current status of the mongo server.
+                If Mongo is installed, you should get a message indicating that the the MongoDB service is loaded, but not active.
+                To start the service, type "sudo service mongod start" into the command line. If you check the status again, the message will have changed to
+                indicate that MongoDB is active and running.
+            </li>
+            <li>
+                Now, we can connect this MongoDB service to Mongo Compass for a better user interface. To do this, we need to connect Mongo Compass to our AWS machine.
+                Open Mongo Compass, and replace "localhost" to the public IP of the AWS machine. My AWS public IP address is 54.163.3.175, so it looks like this once I make
+                changes:
+                <img class="image" src="mongo compass.png">
+            </li>
+            <li>
+                Now we need to change the setting of our AWS instance to allow Mongo Compass to access the databases in our cloud server. To do this, we need to add a rule
+                that allows the Mongo Compass application on our computer to represent data from the AWS machine. Navigate to the instances page, and click on security groups.
+                Edit the inbound rules, and add a rule with <b>port 27017</b> and <b>source set to my IP</b>. Then save.
+            </li>
+            <li>
+                Next, we need to change MongoDB's configuration file in our AWS machine. Go back to the terminal of the virtual machine and type "sudo nano /etc/mongod.conf".
+                This will allow you to edit the configuration file by typing directing into it. Scroll down to where it says "bindIP" and replace the IP to <b>0.0.0.0</b>. Exit
+                with ctrl+X, type "Y" to save changes, the hit Enter. Restart MongoDB with the restart command "sudo service mongod restart".
+                <img class="image" src="mongo db shell.png" width="800">
+            </li>
+            <p>And that's it! MongoDB and Mongo Compass are now two clients connected to the same server (the AWS machine). You can access and edit collections in the database
+                using the MongoDB shell in the AWS terminal, or on Mongo Compass.
+            </p>
+        </ol>
+        </div>
+        
+        <h3>
+            How to Connect to Server from Node.JS App
+        </h3>
+        <p>
+            instructions
+        </p>
+
+        <h3>
+            The App
+        </h3>
+        <p>
+            how the app looks
+        </p>
+
+        <h3>
+            How to Use the App
+        </h3>
+        <p>
+            how to use the app
+        </p>
+
+        <h3>
+            Delete Functionality
+        </h3>
+        <p>
+            how the delete works
+        </p>
+
+        </div>
+    </body>
+
+
+</html>

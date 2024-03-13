@@ -20,6 +20,17 @@ app.get("/getFeed", function (req, res) {
     });
 });
 
+app.get("/editFeed", function (req, res) {
+    var url = req.query.id;
+    var name = req.query.name;
+    db.collection('feeds').findOne({ _id: MS.helper.toObjectID(url) }, function (err, result) {
+        result.name = name;
+        db.collection('feeds').save(result, function (err, result) {
+            res.send("ok");
+        });
+    });
+});
+
 app.get("/addFeed", function (req, res) {
     var url = req.query.url;
     console.log(url);
@@ -30,7 +41,9 @@ app.get("/addFeed", function (req, res) {
     };
 
     db.collection('feeds').insert(obj, function (err, result) {
-        res.end("1");
+        db.collection('feeds').find().toArray(function (err, items) {
+            res.send(items);
+        });
     });
 });
 

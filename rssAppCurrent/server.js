@@ -53,6 +53,15 @@ app.get("/getFeeds", function (req, res) {
     });
 });
 
+app.get("/deleteFeed", function (req, res) {
+    var url = req.query.id;
+    var name = req.query.name;
+    db.collection('feeds').remove({ _id: MS.helper.toObjectID(url) }, function (err, result) {
+        res.send("ok");
+    });
+    
+})
+
 app.use(methodOverride());
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public'));

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSS Reader</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
@@ -71,6 +72,7 @@
         }
 
         function loadFeed(index) {
+            $("body").removeClass("state0").addClass("state1");
             currSelectedFeed = index;
             $("#allFeeds button").removeClass("selected");
             $("#allFeeds button:nth-of-type(" + (index+1)+ ")").addClass("selected");
@@ -149,6 +151,7 @@
         }
 
         var showDetails = function (index) {
+            $("body").removeClass("state0 state1").addClass("state2");
             $("#feedList button").removeClass("selected");
             $("#feedList button:nth-of-type(" + (index+1)+ ")").addClass("selected");
             var item = allItems[index];
@@ -179,12 +182,20 @@
             }
         }
 
+        function goBack(){
+            if ($(body).hasClass("state1")){
+                $(body).removeClass("state1 state2").addClass("state0");
+            }
+            else if ($(body).hasClass("state2")){
+                $(body).removeClass("state0 state1").addClass("state2");
+            }
+        }
     </script>
 
     
 </head>
 
-<body onload="main()">
+<body onload="main()" class="state0">
     <div id="mainMenu">
         <button onclick="addNewFeed()">Add New Feed</button>
         <div id="allFeeds"> </div>
@@ -201,6 +212,8 @@
     <div id="feedList"> </div>
     </div>
     <div id="feedDetails"> </div>
+    <button id="backButton" onclick="goBack()" style="position:fixed; top:0; left:0">
+    Go Back</button>
 </body>
 
 <style>
@@ -208,6 +221,10 @@
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         margin: 0;
         padding: 0;
+    }
+
+    #mainMenu2 button:first-of-type{
+        margin-left : -470px;
     }
 
     #mainMenu {
@@ -278,7 +295,21 @@
         background-color: gold;
     }
 
+    #backButton {
+        display:none
+    }
+
     @media (max-width: 600px) {
+        body.state1 #backButton,
+        body.state2 #backButton{
+            display: block
+        }
+        
+        #mainMenu2 > button{
+            margin-left : 50px;
+        }
+
+
         #mainMenu {
             width: 100vw;
         }
@@ -291,6 +322,49 @@
         #feedDetails {
             width: 100vw;
             display: none;
+        }
+
+        #feedList {
+            width: 100vw;
+            display : none;
+        }
+
+        body.state0 #mainMenu {
+            display: block;
+        }
+
+        body.state0 #feedDetails {
+            display : none;
+        }
+
+        body.state0 #feedDetails{
+            display: none;
+        }
+
+
+        body.state1 #mainMenu {
+            display: none;
+        }
+
+        body.state1 #feedDetails {
+            display : block;
+        }
+
+        body.state1 #feedDetails{
+            display: none;
+        }
+
+
+        body.state2 #mainMenu {
+            display: none;
+        }
+
+        body.state2 #feedDetails {
+            display : none;
+        }
+        
+        body.state2 #feedDetails{
+            display: block;
         }
     }
 </style>

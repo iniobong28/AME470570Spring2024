@@ -107,34 +107,77 @@
             </p>
         </ol>
         </div>
-        
-        <h3>
-            How to Connect to Server from Node.JS App
-        </h3>
-        <p>
-            instructions
-        </p>
-
-        <h3>
-            The App
-        </h3>
-        <p>
-            how the app looks
-        </p>
 
         <h3>
             How to Use the App
         </h3>
         <p>
-            how to use the app
+            This app is intuitive and easy to use. 
         </p>
+        <ul>
+            <li>
+                To add a new feed, click the "add feed" button and past the URL of the RSS feed you wish to display. If a valid URL is submitted, the feed will
+                appear on the leftmost column on the webpage.
+            </li>
+            <li>
+                To edit the name of a feed, first click on the feed to select it. You can tell when a feed is selected if it is highlighted in gold color.
+                After selecting the feed, click on the "edit feed" button. Now you can change the display name of the feed.
+            </li>
+            <li>
+                Navigating your feeds is simple. Click on the feed you want to view and the contents of the feed will be listed in the middle column. To view
+                details of each feed entry, simply click on it and the details will be displayed on the rightmost column.
+            </li>
+        </ul>
 
         <h3>
             Delete Functionality
         </h3>
         <p>
-            how the delete works
+            To implement delete feed Functionality in our RSS app, we must change our code in the server.js file and the index.html files. In
+            index.html, we define a new function, delete(), inside the script tag. In this function, we define a variable that takes in the currently
+            selected feed (aka the feed that the user wants to delete). We ask the user to confirm if they want to delete using the in-built function
+            confirm(). If they select yes, we use AJAX to asynchrnously delete the selected item without affecting the other items in the feed list.
+            This is done by sending a JSON object that will be parsed by the server.
+            Below is the JavaScript code I used in the index.html file:
         </p>
+        <pre>
+            <code>
+                function deleteFeed(){
+
+                    var item = allFeeds[currSelectedFeed];
+                    confirmation = confirm("Are you sure you want to delete " + item.name + "?");
+                    if (confirmation){
+                        $.ajax({
+                            url: './deleteFeed?id=' + item._id + '&name=' + item.name,
+                            type: 'GET',
+                            success: function (data) {
+                                main();
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    return;
+                    }
+                }
+            </code>
+        </pre>
+        <p>
+            The next thing we need to do is make sure that the database will be updated on the server side. To do this, we must define a function in 
+            server.js. This function recieves the JSON object and uses the information we defined in it to delete the appropriate data in the feed list 
+            collection. Below is the JavaScript code I used in server.js:
+        </p>
+        <pre>
+            <code>
+                app.get("/deleteFeed", function (req, res) {
+                    var url = req.query.id;
+                    var name = req.query.name;
+                    db.collection('feeds').remove({ _id: MS.helper.toObjectID(url) }, function (err, result) {
+                        res.send("ok");
+                    });
+                }) 
+            </code>
+        </pre>
 
         </div>
     </body>
